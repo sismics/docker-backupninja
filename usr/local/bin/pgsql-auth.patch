@@ -1,0 +1,30 @@
+--- /usr/share/backupninja/pgsql        2014-11-18 13:56:32.409973902 +0000
++++ pgsql       2014-11-18 13:56:26.453973661 +0000
+@@ -8,6 +8,15 @@
+ getconf databases all
+ getconf compress yes
+ getconf vsname
++getconf PGHOST
++getconf PGUSER
++getconf PGPASSWORD
++export PGSQLUSER=root
++export PGHOST
++export PGUSER
++export PGPASSWORD
++echo "Using PGHOST=$PGHOST, PGUSER=$PGUSER"
++
+ # format maps to pg_dump --format= option, old/default was plain
+ getconf format plain
+
+@@ -121,9 +130,9 @@
+       fi
+    else
+       if [ "$compress" == "yes" ]; then
+-         execstr="su - $PGSQLUSER -s /bin/bash -c \"set -o pipefail ; $PGSQLDUMPALL | $GZIP $GZIP_OPTS > '$backupdir/${localhost}-all.sql.gz'\""
++         execstr="$PGSQLDUMPALL | $GZIP $GZIP_OPTS > '$backupdir/${localhost}-all.sql.gz'"
+       else
+-         execstr="su - $PGSQLUSER -c \"$PGSQLDUMPALL > '$backupdir/${localhost}-all.sql'\""
++         execstr="$PGSQLDUMPALL > '$backupdir/${localhost}-all.sql'"
+       fi
+    fi
+    debug "$execstr"

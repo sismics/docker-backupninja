@@ -1,0 +1,10 @@
+#!/bin/bash
+postconf -e "myorigin = ${HOST_NAME}"
+postconf -e "inet_protocols = ipv4"
+postconf -e "smtp_sasl_auth_enable = yes"
+postconf -e "smtp_sasl_password_maps = static:${SMTP_USER}:${SMTP_PASSWORD}"
+postconf -e "smtp_sasl_security_options = noanonymous"
+postconf -e "smtp_tls_security_level = encrypt"
+postconf -e "header_size_limit = 4096000"
+postconf -e "relayhost = [${SMTP_HOST}]:${SMTP_PORT}"
+postconf -e "mynetworks = 127.0.0.0/8 172.17.0.0/16 ${HOST_IP}/8"
