@@ -1,0 +1,4 @@
+545c545
+<    files=`find $configdirectory -follow -mindepth 1 -maxdepth 1 -type f ! -name '.*.swp' | sort -n`
+---
+>    files=`find $configdirectory -follow -type f ! -name '.*.swp' | sort -n`

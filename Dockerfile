@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Download and install backupninja
 RUN apt-get update
-RUN apt-get -y -q install supervisor rsyslog cron postfix backupninja borgbackup patch rsync mysql-client postgresql-client
+RUN apt-get -y -q install supervisor rsyslog cron postfix backupninja borgbackup patch rsync mysql-client postgresql-client less vim
 
 COPY etc /etc
 COPY usr /usr
