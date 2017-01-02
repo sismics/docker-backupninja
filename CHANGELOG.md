@@ -1,4 +1,6 @@
 ## Change Log
+### Version 1.3.0 (2016-01-02)
+- Upgrade Postgresql client to version 9.6
 ### Version 1.2 (2016-12-27)
 - Remove rotation of Mysql and Postgresql backups, it's now ensured by BorgBackup
 ### Version 1.1 (2016-11-18)
