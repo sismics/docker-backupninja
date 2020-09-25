@@ -1,4 +1,6 @@
 ## Change Log
+### Version 1.4.3 (2020-09-25)
+- Automate CD with GitHub Actions
 ### Version 1.4.0 (2020-09-14)
 - Upgrade Postgresql client to version 12.4
 ### Version 1.3.0 (2016-01-02)

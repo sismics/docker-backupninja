@@ -21,9 +21,16 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push
+      - name: Build and push Docker image
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: sismics/backupninja:${{ steps.get_version.outputs.VERSION }}
+      - name: Create Github Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ steps.get_version.outputs.VERSION }}
