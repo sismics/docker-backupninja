@@ -23,6 +23,6 @@ RUN apt-get update && \
 
 COPY etc /etc
 COPY usr /usr
-RUN /usr/local/bin/init-backupninja.sh
+RUN chmod +x /usr/local/bin/init-backupninja.sh && /usr/local/bin/init-backupninja.sh
 
 CMD ["/usr/local/bin/entrypoint.sh"]
