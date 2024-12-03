@@ -11,4 +11,4 @@ patch -p1 < /usr/local/bin/pgsql-auth.patch /usr/share/backupninja/pgsql
 patch -p2 < /usr/local/bin/pgsql-auth-2.patch /usr/share/backupninja/pgsql
 
 # Remove system backups
-rm /etc/cron.daily/dpkg /etc/cron.daily/logrotate /etc/cron.daily/passwd
+rm /etc/cron.daily/dpkg /etc/cron.daily/logrotate
