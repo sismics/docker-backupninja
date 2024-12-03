@@ -1,29 +1,29 @@
---- /usr/sbin/backupninja       2014-11-19 07:44:43.904562900 +0000
-+++ backupninja     2014-11-19 07:47:36.456569870 +0000
-@@ -589,21 +589,17 @@
-    [ $fatals == 0 ] || subject="FAILED"
+--- /usr/sbin/backupninja       2023-02-12 20:01:53.000000000 +0000
++++ backupninja 2024-12-03 13:33:31.186275291 +0000
+@@ -671,21 +671,17 @@
+          [ $halts == 0 ] || subject="HALTED"
 
-    {
-+      echo -e "<pre>"
-       for ((i=0; i < ${#messages[@]} ; i++)); do
-           echo ${messages[$i]}
-       done
-       echo -e "$errormsg"
-       if [ "$reportspace" == "yes" ]; then
--         previous=""
--         for i in $(ls "$configdirectory"); do
--            backuploc=$(grep ^directory "$configdirectory"/"$i" | /usr/bin/awk '{print $3}')
--            if [ "$backuploc" != "$previous" -a -n "$backuploc" -a -d "$backuploc" ]; then
--               df -h "$backuploc"
--               previous="$backuploc"
--            fi
--         done
-+        echo -e "== Disk usage =="
-+        df -h /var/backups
-       fi
--   } | mail -s "backupninja: $hostname $subject" $reportemail
-+      echo -e "</pre>"
-+   } | mail -a "Content-type: text/html" -s "backupninja: $hostname $subject" $reportemail
- fi
-
- if [ $actions_run != 0 ]; then
+          {
++            echo -e "<pre>"
+             for ((i=0; i < ${#messages[@]} ; i++)); do
+                echo ${messages[$i]}
+             done
+             echo -e "$errormsg"
+             if [ "$reportspace" == "yes" ]; then
+-               previous=""
+-               for i in $(ls "$configdirectory"); do
+-                  backuploc=$(grep ^directory "$configdirectory"/"$i" | /usr/bin/awk '{print $3}')
+-                  if [ "$backuploc" != "$previous" -a -n "$backuploc" -a -d "$backuploc" ]; then
+-                     df -h "$backuploc"
+-                     previous="$backuploc"
+-                  fi
+-               done
++               echo -e "== Disk usage=="
++              df -h /var/backups
+             fi
+-         } | fold -s -w "$reportwrap" | mail -s "backupninja: $hostname $subject" $reportemail
++            echo -e "</pre>"
++         } | fold -s -w "$reportwrap" | mail -a "Content-type: text/html" -s "backupninja: $hostname $subject" $reportemail
+       else
+          error "Unable to locate mail executable, email report not sent!"
+          let "errors += 1"

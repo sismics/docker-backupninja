@@ -1,4 +1,11 @@
-545c545
-<    files=`find $configdirectory -follow -mindepth 1 -maxdepth 1 -type f ! -name '.*.swp' | sort -n`
----
->    files=`find $configdirectory -follow -type f ! -name '.*.swp' | sort -n`
+--- backupninja-conf    2024-12-03 13:37:55.759678239 +0000
++++ backupninja 2024-12-03 13:38:19.694533750 +0000
+@@ -575,7 +575,7 @@
+ if [ "$singlerun" ]; then
+    files=$singlerun
+ else
+-   files=`find $configdirectory -follow -mindepth 1 -maxdepth 1 -type f ! -name '.*.swp' ! -name '*~' | sort -n`
++   files=`find $configdirectory -follow -type f ! -name '.*.swp' ! -name '*~' | sort -n`
+
+    if [ -z "$files" ]; then
+       info "No backup actions configured in '$configdirectory', run ninjahelper!"

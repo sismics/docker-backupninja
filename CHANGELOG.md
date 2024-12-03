@@ -1,4 +1,7 @@
 ## Change Log
+### Version 1.5.0 (2024-12-03)
+- Upgrade to Ubuntu Noble 24.04
+- Upgrade Postgreql client to version 16.6
 ### Version 1.4.3 (2020-09-25)
 - Automate CD with GitHub Actions
 ### Version 1.4.0 (2020-09-14)

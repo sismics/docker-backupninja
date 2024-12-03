@@ -1,15 +1,31 @@
-109,110c109
-<    execstr="${cmdprefix} su - $PGSQLUSER -c 'psql -AtU $PGSQLUSER -c \"SELECT datname FROM pg_database WHERE NOT datistemplate\"'"
-<    debug execstr
----
->    execstr="psql -AtU $PGUSER postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate\""
-117a117
->    debug "databases $databases"
-166c166
-<          execstr="su - $PGSQLUSER -s /bin/bash -c \"$globalscmd\""
----
->          execstr="$globalscmd"
-203c203
-<          execstr="su - $PGSQLUSER -s /bin/bash -c \"$dumpcmd\""
----
->          execstr="$dumpcmd"
+--- pgsql1      2024-12-03 13:43:24.572693210 +0000
++++ pgsql       2024-12-03 13:46:15.748659774 +0000
+@@ -55,8 +55,8 @@
+ # of all non-template databases to avoid the use of pg_dumpall.
+ dumpglobals="no"
+ if [ "$databases" = "all" ] && [ "$format" != "plain" ]; then
+-   execstr="su - $PGSQLUSER -c 'psql -AtU $PGSQLUSER -c \"SELECT datname FROM pg_database WHERE NOT datistemplate\"'"
+-   debug execstr
++   execstr="psql -AtU $PGUSER postgres -c \"SELECT datname FROM pg_database WHERE NOT datistemplate\""
++   debug "databases $databases"
+    dblist=""
+    for db in $(eval $execstr 2>&1); do
+       dblist="$dblist $db"
+@@ -101,7 +101,7 @@
+       else
+          globalscmd="$PGSQLDUMPALL -g > '$backupdir/globals.sql'"
+       fi
+-      execstr="su - $PGSQLUSER -s /bin/bash -c \"$globalscmd\""
++      execstr="$globalscmd"
+       debug "$execstr"
+       if [ ! $test ]; then
+          output=`eval $execstr 2>&1`
+@@ -134,7 +134,7 @@
+       else
+          dumpcmd="$PGSQLDUMP --format=$format ${disablecustomcompress} $db > '$backupdir/${db}.${dumpext}'"
+       fi
+-      execstr="su - $PGSQLUSER -s /bin/bash -c \"$dumpcmd\""
++      execstr="$dumpcmd"
+       debug "$execstr"
+       if [ ! $test ]; then
+          output=`eval $execstr 2>&1`
